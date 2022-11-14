@@ -1,0 +1,12 @@
+{
+  "AppSyncApiName": "fullstackcourse",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authfullstackcoursee6766dd7",
+      "Outputs.UserPoolId"
+    ]
+  },
+  "AuthModeLastUpdated": "2022-11-02T18:40:40.202Z"
+}

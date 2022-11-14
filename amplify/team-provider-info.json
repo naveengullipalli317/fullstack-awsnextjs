@@ -1,0 +1,39 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-fullstackcourse-dev-190805-authRole",
+      "UnauthRoleArn": "arn:aws:iam::227772628579:role/amplify-fullstackcourse-dev-190805-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::227772628579:role/amplify-fullstackcourse-dev-190805-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-fullstackcourse-dev-190805-deployment",
+      "UnauthRoleName": "amplify-fullstackcourse-dev-190805-unauthRole",
+      "StackName": "amplify-fullstackcourse-dev-190805",
+      "StackId": "arn:aws:cloudformation:eu-central-1:227772628579:stack/amplify-fullstackcourse-dev-190805/4d4b0a80-5ad9-11ed-a053-0a53eb406c54",
+      "AmplifyAppId": "d28hy9q8ww08im"
+    },
+    "categories": {
+      "api": {
+        "fullstackcourse": {}
+      },
+      "auth": {
+        "fullstackcoursee6766dd7": {}
+      },
+      "storage": {
+        "postimages": {}
+      }
+    }
+  },
+  "fullstack": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-fullstackcourse-fullstack-191620-authRole",
+      "UnauthRoleArn": "arn:aws:iam::227772628579:role/amplify-fullstackcourse-fullstack-191620-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::227772628579:role/amplify-fullstackcourse-fullstack-191620-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-fullstackcourse-fullstack-191620-deployment",
+      "UnauthRoleName": "amplify-fullstackcourse-fullstack-191620-unauthRole",
+      "StackName": "amplify-fullstackcourse-fullstack-191620",
+      "StackId": "arn:aws:cloudformation:eu-central-1:227772628579:stack/amplify-fullstackcourse-fullstack-191620/745c4d90-5ada-11ed-a4cc-02d0b683ed06",
+      "AmplifyAppId": "d28hy9q8ww08im"
+    }
+  }
+}
