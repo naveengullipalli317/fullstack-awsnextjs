@@ -14,6 +14,9 @@ import "easymde/dist/easymde.min.css"
 
 function EditPost() {
     const [post, setPost] = useState(null)
+    const [coverImage, setCoverImage] = useState(null)
+    const [localImage, setLocalImage] = useState(null)
+    const fileInput = useRef(null)
     const router = useRouter()
     const { id } = router.query
 
@@ -24,13 +27,33 @@ function EditPost() {
             const postData = await API.graphql(
                 {
                     query: getPost,
-                    variables: { id }
+                    variables: { id },
                 })
-                setPost(postData.data.getPost)
+                setPost(postData.data.getPost);
+                if (postData.data.getPost.coverImage) {
+                    updateCoverImage(postData.data.getPost.coverImage)
+                }
+
         }
     }, [id])
 
     if(!post) return null;
+    async function updateCoverImage(coverImage) {
+        const imageKey = await Storage.get(coverImage)
+        setCoverImage(imageKey)
+    }
+
+    async function uploadImage() {
+        fileInput.current.click()
+    }
+
+    function handleChange(e) {
+        const fileUpload = e.target.files[0]
+        if (!fileUpload) return
+        setCoverImage(fileUpload)
+        setLocalImage(URL.createObjectURL(fileUpload))
+    }
+
     function onChange(e){
         setPost(() => ({
             ...post, [e.target.name]:[e.target.value]
@@ -44,6 +67,13 @@ function EditPost() {
             content,
             title
         }
+        if (coverImage && localImage) {
+            const fileName = `${coverImage.name}_${uuid()}`;
+            postUpdated.coverImage = fileName;
+            await Storage.put(fileName, coverImage)
+
+        }
+
         await API.graphql({
             query: updatePost,
             variables: {input: postUpdated},
@@ -58,6 +88,12 @@ function EditPost() {
             <h1 className="text-3xl font-semibold tracking-wide mt-6 mb-2">
                 Edit Post
             </h1>
+
+            {
+                coverImage && (
+                    <img className="mt-4" src={localImage ? localImage: coverImage}/>
+                )
+            }
             <input
                 onChange={onChange}
                 name="title"
@@ -69,6 +105,16 @@ function EditPost() {
             value={post.content}
             onChange={(value)=> setPost({...post, content: value})}
             />
+            <input type="file" ref={fileInput} className="absolute w-0 h-0"
+            onChange={handleChange}
+            />
+            <button
+            onClick={uploadImage}
+            className="mb-4 bg-green-600 text-white
+            font-semibold px-8 py-2 rounded-lg">
+                Upload New Cover Image
+            </button>
+            {" "}
             <button
             onClick={updateCurrentPost}
             className="mb-4 bg-blue-600 text-white
