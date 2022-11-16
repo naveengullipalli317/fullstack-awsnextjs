@@ -5,8 +5,9 @@ import ReactMarkDown from 'react-markdown'
 import'../../configureAmplify'
 //import { updatePost } from '../../src/graphql/mutations'
 import { listPosts, getPost } from '../../src/graphql/queries'
-import { creteComment } from "../../src/graphql/mutations"
-import dynamic from "next/dynamic";
+import { createComment } from "../../src/graphql/mutations"
+import dynamic from "next/dynamic"
+import { v4 as uuid } from 'uuid'
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"),
     {
     ssr:false,
@@ -18,6 +19,7 @@ export default function Post({ post }) {
     const [coverImage, setCoverImage] = useState(null);
     const [comment, setComment ] = useState(intialState)
     const [showMe, setShowMe] = useState(false)
+    const { message } = comment
 
     function toggle () {
         setShowMe(!showMe)
@@ -38,6 +40,21 @@ export default function Post({ post }) {
         return <div>Loading......</div>
     }
 
+    async function createTheComment() {
+        if (!message) return
+        const id = uuid()
+        comment.id = id
+        try {
+            await API.graphql({
+            query: createComment,
+            variables: {input: comment},
+            authMode: "AMAZON_COGNITO_USER_POOLS"
+        })
+        } catch(error) {
+            console.log(error)
+        }
+        router.push("/my-posts")
+    }
     return (
         <div>
             <h1 className='text-5xl mt-4 font-semibold tracing-wide'>
@@ -60,8 +77,11 @@ export default function Post({ post }) {
                 {
                     <div
                         style={{display: showMe ? "block" : "none"}}>
-                        <SimpleMDE value= ""/>
-                        <button type="button" className="mb-4 bg-green-600 text-white
+                        <SimpleMDE value= {comment.message}
+                        onChange={(value) =>
+                        setComment({...comment, message:value,
+                        postID: post.id})}/>
+                        <button onClick={createTheComment} type="button" className="mb-4 bg-green-600 text-white
                 font-semibold px-8 py-2 rounded-lg">Save</button>
                     </div>
 

@@ -12,6 +12,7 @@
     "@aws-amplify/ui-components": "^1.9.40",
     "@aws-amplify/ui-react": "^1.2.26",
     "aws-amplify": "^4.3.42",
+    "easymde": "^2.18.0",
     "momento": "^0.2.0",
     "next": "13.0.1",
     "react": "18.2.0",

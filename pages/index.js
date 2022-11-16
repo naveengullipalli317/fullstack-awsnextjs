@@ -28,8 +28,9 @@ export default function Home() {
 
   return (
     <div>
-      <h1 className="text-sky-400 text-3xl font-bold tracking-wide mt-6 mb-2">
-        My posts
+      <h1 className="text-3xl font-semibold tracking-wide mt-6 mb-8">
+      {/* className="text-sky-400 text-3xl font-bold tracking-wide mt-6 mb-2" */}
+      posts
       </h1>
        {
         posts.map((post, index) => (
@@ -41,9 +42,27 @@ export default function Home() {
                   className="w-36 h-36 bg-contain bg-center rounded-full sm:mx-0 sm:shrink-0"/>
                 )
               }
-              <div className="cursor-pointer border-b border-gray-300 mt-8 pb-4">
+              <div className="cursor-pointer mt-2">
+                {/* className="cursor-pointer border-b border-gray-300 mt-8 pb-4" */}
                 <h2 className="text-xl font-semibold" key={index}>{post.title}</h2>
                 <p className="text-gray-500 mt-2">Author: {post.username}</p>
+                {
+                  post.comments.items.length > 0 && 
+                  post.comments.items.map((comment, index) => (
+                    <div key={index} className="w-full h-20 p-2 border bg-white rounded 
+                      focus:outline-none focus:ring-gray-300 focus:ring-1
+                      sm:flex sm-py-1 space-y-2">
+                      <div>
+                        <p className="text-gray-500 mt-2">
+                          {comment.message}
+                        </p>
+                        <p className="text-blue-400 mt-1">
+                          {comment.createdBy}
+                        </p>
+                      </div>
+                    </div>
+                  ))
+                }
               </div>
             </div>
             
